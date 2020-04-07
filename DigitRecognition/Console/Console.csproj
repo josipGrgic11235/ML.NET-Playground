@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MNIST Database\**" />
+    <EmbeddedResource Remove="MNIST Database\**" />
+    <None Remove="MNIST Database\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DigitRecognizer\DigitRecognizer.csproj" />
+    <ProjectReference Include="..\MNISTLoader\MNISTLoader.csproj" />
+  </ItemGroup>
+
+</Project>
