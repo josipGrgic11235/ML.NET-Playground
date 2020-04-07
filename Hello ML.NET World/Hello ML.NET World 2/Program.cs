@@ -54,7 +54,7 @@ namespace Hello_ML.NET_World_2
         private static void TestSinglePrediction(MLContext mlContext, ITransformer model)
         {
             var predictionEngine = mlContext.Model.CreatePredictionEngine<TaxiTrip, TaxiTripFarePrediction>(model);
-            var taxiTripSample = new TaxiTrip()
+            var taxiTripSample1 = new TaxiTrip()
             {
                 VendorId = "VTS",
                 RateCode = "1",
@@ -65,9 +65,28 @@ namespace Hello_ML.NET_World_2
                 FareAmount = 0 // To predict. Actual/Observed = 15.5
             };
 
-            var prediction = predictionEngine.Predict(taxiTripSample);
+            // One copied directly from the training data
+            // vendor_id,   rate_code,  passenger_count,    trip_time_in_secs,  trip_distance,  payment_type,   fare_amount
+            // CMT,         1,          1,                  243,                0.6,            CSH,            4.5
+            var taxiTripSample2 = new TaxiTrip()
+            {
+                VendorId = "CMT",
+                RateCode = "1",
+                PassengerCount = 1,
+                TripTime = 243,
+                TripDistance = 0.6f,
+                PaymentType = "CSH",
+                FareAmount = 0 // To predict. Actual/Observed = 15.5
+            };
+
+            var prediction1 = predictionEngine.Predict(taxiTripSample1);
             Console.WriteLine($"**********************************************************************");
-            Console.WriteLine($"Predicted fare: {prediction.FareAmount:0.####}, actual fare: 15.5");
+            Console.WriteLine($"Predicted fare: {prediction1.FareAmount:0.####}, actual fare: 15.5");
+            Console.WriteLine($"**********************************************************************");
+
+            var prediction2 = predictionEngine.Predict(taxiTripSample2);
+            Console.WriteLine($"**********************************************************************");
+            Console.WriteLine($"Predicted fare: {prediction2.FareAmount:0.####}, actual fare: 4.5");
             Console.WriteLine($"**********************************************************************");
         }
     }

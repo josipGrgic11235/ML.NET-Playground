@@ -4,13 +4,14 @@ using System.Linq;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Transforms;
+using System.IO;
 
 namespace DigitRecognizer
 {
     public class DigitRecognizer
     {
-
-        private static string ModelPath = "C:\\josip.grgic\\DigitRecognition\\Console\\MLModels\\Model.zip";
+        private static string ModelSubPath = "C:\\josip.grgic\\DigitRecognition\\Console\\MLModels";
+        private static string ModelPath = $"{ModelSubPath}\\Model.zip";
 
         public static void Train(IEnumerable<DigitInputData> trainImages, IEnumerable<DigitInputData> testImages)
         {
@@ -77,6 +78,7 @@ namespace DigitRecognizer
 
             PrintMultiClassClassificationMetrics(trainer.ToString(), metrics);
 
+            _ = Directory.CreateDirectory(ModelSubPath);
             mlContext.Model.Save(trainedModel, trainData.Schema, ModelPath);
 
             Console.WriteLine("The model is saved to {0}", ModelPath);
