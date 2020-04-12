@@ -76,7 +76,7 @@ namespace Hello_ML.NET_World_2
                 TripTime = 243,
                 TripDistance = 0.6f,
                 PaymentType = "CSH",
-                FareAmount = 0 // To predict. Actual/Observed = 15.5
+                FareAmount = 0 // To predict. Actual/Observed = 4.5
             };
 
             var prediction1 = predictionEngine.Predict(taxiTripSample1);

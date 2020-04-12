@@ -32,7 +32,7 @@ namespace Hello_ML.NET_World
             IDataView trainingData = mlContext.Data.LoadFromEnumerable(houseData);
 
             // 2. Specificiraj pipeline za pripremu podataka i trening
-            var pipeline = mlContext
+            IEstimator<ITransformer> pipeline = mlContext
                     .Transforms
                     .Concatenate(
                         outputColumnName:"Features",
@@ -43,7 +43,7 @@ namespace Hello_ML.NET_World
                         maximumNumberOfIterations: 100));
 
             // 3. Treniraj model
-            var model = pipeline.Fit(trainingData);
+            ITransformer model = pipeline.Fit(trainingData);
 
             // 4. Testiraj model
             HouseData[] testHouseData =
