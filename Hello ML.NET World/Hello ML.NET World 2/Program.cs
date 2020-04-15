@@ -20,6 +20,7 @@ namespace Hello_ML.NET_World_2
 
         public static ITransformer Train(MLContext mlContext, string dataPath)
         {
+            Console.WriteLine("Training....");
             IDataView dataView = mlContext.Data.LoadFromTextFile<TaxiTrip>(dataPath, hasHeader: true, separatorChar: ',');
             
             var pipeline = mlContext.Transforms.CopyColumns(outputColumnName: "Label", inputColumnName: "FareAmount")
@@ -39,6 +40,7 @@ namespace Hello_ML.NET_World_2
 
         private static void Evaluate(MLContext mlContext, ITransformer model)
         {
+            Console.WriteLine("Testing....");
             IDataView dataView = mlContext.Data.LoadFromTextFile<TaxiTrip>(_testDataPath, hasHeader: true, separatorChar: ',');
             var predictions = model.Transform(dataView);
             var metrics = mlContext.Regression.Evaluate(predictions, "Label", "Score");
@@ -49,6 +51,7 @@ namespace Hello_ML.NET_World_2
             Console.WriteLine($"*------------------------------------------------");
             Console.WriteLine($"*       RSquared Score:      {metrics.RSquared:0.##}");
             Console.WriteLine($"*       Root Mean Squared Error:      {metrics.RootMeanSquaredError:#.##}");
+            Console.WriteLine();
         }
 
         private static void TestSinglePrediction(MLContext mlContext, ITransformer model)
@@ -83,6 +86,7 @@ namespace Hello_ML.NET_World_2
             Console.WriteLine($"**********************************************************************");
             Console.WriteLine($"Predicted fare: {prediction1.FareAmount:0.####}, actual fare: 15.5");
             Console.WriteLine($"**********************************************************************");
+            Console.WriteLine();
 
             var prediction2 = predictionEngine.Predict(taxiTripSample2);
             Console.WriteLine($"**********************************************************************");
